@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 350px;
+      margin: auto;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Age Calculator</h1>
+    <label for="dob">Enter Your Date of Birth:</label>
+    <input type="date" id="dob">
+    <button onclick="calculateAge()">Calculate</button>
+
+    <div id="result"></div>
+  </div>
+
+  <!-- Footer with Trademark -->
+  <footer>
+    <p>© Chakraborty Pvt Ltd | All rights reserved</p>
+  </footer>
+
+  <script>
+    function calculateAge() {
+      let dobInput = document.getElementById("dob").value;
+      if (!dobInput) {
+        document.getElementById("result").innerHTML = "Please enter a valid date!";
+        return;
+      }
+
+      let dob = new Date(dobInput);
+      let now = new Date();
+
+      let years = now.getFullYear() - dob.getFullYear();
+      let months = now.getMonth() - dob.getMonth();
+      let days = now.getDate() - dob.getDate();
+      let hours = Math.floor((now - dob) / (1000 * 60 * 60));
+      let minutes = Math.floor((now - dob) / (1000 * 60));
+
+      if (days < 0) {
+        months--;
+        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.getElementById("result").innerHTML =
+        `You are <strong>${years}</strong> years, <strong>${months}</strong> months, and <strong>${days}</strong> days old.<br>` +
+        `That's approximately <strong>${hours}</strong> hours or <strong>${minutes}</strong> minutes!`;
+    }
+  </script>
+
+</body>
+</html>
